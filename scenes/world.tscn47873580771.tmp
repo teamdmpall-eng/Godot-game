@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkjea8px8g3no"]
+
+[ext_resource type="PackedScene" uid="uid://dcs0i4kec774o" path="res://objects/player.tscn" id="1_rwgxs"]
+[ext_resource type="Script" uid="uid://dn3uwj5bwyjrt" path="res://scripts/player.gd" id="2_4wyf3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e5uuo"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnsk1"]
+albedo_color = Color(0.03738567, 0.18341058, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rwgxs"]
+size = Vector2(50, 50)
+orientation = 1
+
+[node name="World" type="Node3D"]
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_e5uuo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+material_override = SubResource("StandardMaterial3D_nnsk1")
+mesh = SubResource("QuadMesh_rwgxs")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Player" parent="." instance=ExtResource("1_rwgxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9087641, 0)
+script = ExtResource("2_4wyf3")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6716392, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 15, 0)
